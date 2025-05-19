@@ -7,10 +7,10 @@
 
 ## Setup
 
-1. Install [`asyncapi/generator`](https://github.com/asyncapi/generator)
+1. Install [`asyncapi/cli`](https://github.com/asyncapi/cli)
 
 ``` sh
-npm install -g @asyncapi/generator
+npm install -g @asyncapi/cli
 ```
 
 2. Install this plugin.

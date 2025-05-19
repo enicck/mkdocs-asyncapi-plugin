@@ -20,21 +20,24 @@ class AsyncAPIPlugin(mkdocs.plugins.BasePlugin):
         path = match.group("path")
 
         indir = "docs"
+        fname = os.path.basename(path)
+        fname = os.path.splitext(fname)[0]
         with tempfile.TemporaryDirectory() as outdir:
             infile = os.path.join(indir, path)
             subprocess.run(
                 [
-                    "ag",
+                    "asyncapi",
+                    "generate",
+                    "fromTemplate",
                     infile,
-                    "@asyncapi/markdown-template",
+                    "@asyncapi/markdown-template@1.2.1",
                     "--force-write",
                     "-o",
                     outdir,
+                    "-p", f"outFilename={fname}.md"
                 ],
                 check=True,
             )
-            fname = os.path.basename(path)
-            fname = os.path.splitext(fname)[0]
             outfile = os.path.join(outdir, fname + ".md")
             with open(outfile) as f:
                 generated = f.read()
