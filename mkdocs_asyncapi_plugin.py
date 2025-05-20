@@ -9,7 +9,7 @@ import os
 
 MARKER = re.compile(r"!!asyncapi(?: (?P<path>[^\s><&:]+))?(?P<params>(?: [^\s><&:]+=[^\s><&:]+)*)?!!")
 
-
+plugin_params = ["template"]
 class AsyncAPIPlugin(mkdocs.plugins.BasePlugin):
     def on_page_markdown(self, markdown, page, config, files):
         match = MARKER.search(markdown)
@@ -47,7 +47,8 @@ class AsyncAPIPlugin(mkdocs.plugins.BasePlugin):
 
             if paramsStrings:
                 for param in params_dict:
-                    args.extend(['-p', f'{param}={params_dict[param]}'])
+                    if param not in plugin_params:
+                        args.extend(['-p', f'{param}={params_dict[param]}'])
 
             subprocess.run(
                 args,
