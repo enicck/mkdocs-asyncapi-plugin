@@ -37,3 +37,11 @@ Create a new markdown file which contains only this line:
 `path-to-spec-file` is the path to the AsyncAPI spec file relative to the root of the repository (where you run `mkdocs`).
 
 Then, the entire content of this file will be the AsyncAPI spec.
+
+## Configuration
+You can configure the output with the supported [supported parameters](https://github.com/asyncapi/markdown-template?tab=readme-ov-file#supported-parameters) of the template.
+
+For example:
+```markdown
+!!asyncapi <path-to-spec-file> toc=false!!
+```
