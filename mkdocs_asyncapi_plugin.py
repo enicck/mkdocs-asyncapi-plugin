@@ -20,9 +20,14 @@ class AsyncAPIPlugin(mkdocs.plugins.BasePlugin):
 
         path = match.group("path")
         paramsStrings = match.group('params')
+        params_dict = {}
         if paramsStrings:
             param_pairs = [p for p in paramsStrings.strip().split(' ') if p]
             params_dict = dict(p.split('=') for p in param_pairs)
+
+        template = "@asyncapi/markdown-template@1.2.1"
+        if "template" in paramsStrings:
+            template = params_dict["template"]
 
         indir = "docs"
         fname = os.path.basename(path)
@@ -34,7 +39,7 @@ class AsyncAPIPlugin(mkdocs.plugins.BasePlugin):
                 "generate",
                 "fromTemplate",
                 infile,
-                "@asyncapi/markdown-template@1.2.1",
+                template,
                 "--force-write",
                 "-o",
                 outdir,
